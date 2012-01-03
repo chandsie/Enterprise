@@ -103,7 +103,10 @@ def _getHoursAndMinutes(log):
     if not log.time_out:
         if log.date == datetime.today().date():
             return (0,0);
-        log.time_out = time(hour = 17)
+        if log.time_in > time(17,0): 
+            log.time_out = log.time_in + time(0,1)
+        else:
+            log.time_out = time(hour = 17)
         log.save()
     
     deltas = str(_getDiff(log.time_out, log.time_in)).split(":")
