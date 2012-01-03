@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Admin Login{% endblock %}
+{% block head %}Admin Login{% endblock %}
+{% block content %}
+
+Please enter the administrator password:
+<form method="post" action=".">
+{% csrf_token %}
+<table class="center">
+{{ form.as_table }}
+</table>
+<input type="submit" value="Login" />
+</form>
+{% endblock %}

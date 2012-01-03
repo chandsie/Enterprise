@@ -1,0 +1,15 @@
+{% extends "admin/base.html"%}
+{% block title %}Add User{% endblock %}
+{% block head %}Add a New User{% endblock %}
+{% block adminContent %}
+
+<form id="add-form" method="post" action=".">
+{% csrf_token %}
+
+<table class="center">
+{{ form.as_table }}
+</table>
+
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}

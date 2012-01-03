@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+{% block external %}{% endblock %}
+<link rel="stylesheet" href="/site_media/style.css" type="text/css" />
+<title>UBSNA Attendance System | {% block title %}{% endblock %}</title>
+
+<!--[if !IE 7]>
+	<style type="text/css">
+		#wrap {display:table;height:100%}
+	</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="wrap">
+	<div id="main">
+		<a href="/log/"><img border=0 alt="logo" src="/site_media/logo.jpg"></img></a>
+		<h1>Attendance System</h1>
+		<h2>{% block head %}{% endblock %}</h2>
+		{% block content %}
+		{% endblock %}
+	</div>
+</div>
+
+<div id="footer">
+<!-- &bull; Designed and Maintained by Shreyas Chand &bull; -->	
+</div>
+
+</body>
+</html>

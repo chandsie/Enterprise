@@ -1,0 +1,8 @@
+{% extends "base.html"%}
+{% block title %}Error{% endblock %}
+{% block head %}Error{% endblock %}
+{% block content %}
+I'm sorry {{ name }}, you have already logged out at {{ time }}! You worked for {% if hours != 0 %}{{ hours }} {% if hours > 1 %}hours{% else %}hour{% endif %} and {% endif %} {{ minutes }} {% if minutes > 1 %}minutes{% else %}minute{% endif %} today.
+<p/>
+Please contact your administrator if you logged out too early by accident.
+{% endblock %}

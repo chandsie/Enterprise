@@ -1,0 +1,8 @@
+{% extends "base.html"%}
+{% block title %}Logged Out{% endblock %}
+{% block head %}Logged Out{% endblock %}
+{% block content %}
+{{ name }}, you have been logged out at {{ time }}!
+<br/>
+Today you worked for {% if hours != 0 %}{{ hours }} {% if hours > 1 %}hours{% else %}hour{% endif %} and {% endif %} {{ minutes }} {% if minutes > 1 %}minutes{% else %}minute{% endif %}.
+{% endblock %}

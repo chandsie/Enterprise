@@ -1,0 +1,16 @@
+{% extends "admin/base.html"%}
+{% block title %}Range Report{% endblock %}
+{% block head %}Report From: {{ begin }} To: {{ end }}{% endblock %}
+{% block adminContent %}
+
+
+<table border=1 class="center">
+<th>Employee</th><th>Hours Worked</th><th>Days Worked</th><th>Days Absent</th><th>Remarks</th>
+{% for log in logs %}
+<tr>
+{% for field in log %}<td>{% if forloop.counter = 1%}<a href="../../user/{{ field.username }}" >{{ field.first_name }} {{ field.last_name }}</a>{% else %}{{ field }}{% endif %}</td>{% endfor %}
+{% endfor %}
+</tr>
+</table>
+ 
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Main{% endblock %}
+{% block head %}Sign in{% endblock %}
+{% block content %}
+<p>
+<a href="update">Change Password</a>
+</p>
+
+<form id="log-form" method="post" action="/log">
+{% csrf_token %}
+
+<table class="center">
+{{ form.as_table }}
+</table>
+
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}

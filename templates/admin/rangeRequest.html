@@ -1,0 +1,15 @@
+{% extends "admin/base.html"%}
+{% block title %}Range Report{% endblock %}
+{% block head %}Date Range Report{% endblock %}
+{% block adminContent %}
+
+Please choose a range to generate the report for:</p>
+
+<form id="range-form" method="get" action=".">
+<table class="center">
+{{ form.as_table }}
+</table>
+
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "admin/base.html"%}
+{% block title %}{{ date }}{% endblock %}
+{% block head %}{{ date }}{% endblock %}
+{% block adminContent %}
+
+Summary:
+</br>
+<strong>Total Employees:</strong> {{ employees }}
+</p>
+
+<table class="center" border=1>
+<caption>Full Report</caption>
+<tr>
+<th>Name</th> <th>Time In</th> <th>Time Out</th> <th>Total Hours</th>
+</tr>
+{% for log,hours in logs %}
+<tr>
+<td><a href="../../user/{{ log.name|urlencode }}/">{{ log.name.first_name }} {{ log.name.last_name }}</a></td> <td>{{ log.time_in }}</td> <td>{{ log.time_out }}</td> <td>{{ hours }}</td>
+</tr>
+{% endfor %}
+</table> 
+
+{% endblock %}

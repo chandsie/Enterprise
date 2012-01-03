@@ -1,0 +1,25 @@
+{% extends "admin/base.html"%}
+{% block title %}{{ name }}{% endblock %}
+{% block head %}{{ name }}{% endblock %}
+{% block adminContent %}
+Summary:
+</br>
+<b>Days Worked:</b> {{ days }} days
+</br>
+<b>Hours Worked:</b> {{ hours }} hours and {{ minutes }} minutes
+</p>
+
+<table class="center" border=1>
+<caption>Full Report</caption>
+<tr>
+<th>Date</th> <th>Time In</th> <th>Time Out</th> <th>Total Hours</th>
+</tr>
+
+{% for log, time in logs %}
+<tr>
+<td><a href="../../date/{{ log.date.year|urlencode }}-{{ log.date.month|urlencode }}-{{ log.date.day|urlencode }}/">{{ log.date }}</a></td> <td>{{ log.time_in }}</td> <td>{{ log.time_out }}</td><td>{{ time }}</td>
+</tr>
+{% endfor %}
+</table> 
+
+{% endblock %}
