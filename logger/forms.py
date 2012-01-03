@@ -125,12 +125,14 @@ class RegistrationForm(forms.Form):
 class RangeReportForm(forms.Form):
     begin = forms.DateField(
                             label=u'Beginning Date',
-                            widget=SelectDateWidget(years = [datetime.date.today().year - i for i in range(10)])
+                            widget=SelectDateWidget(years = [datetime.date.today().year - i for i in range(10)]),
+                            initial=datetime.date.today()-datetime.timedelta(days=14)
                             )
-    end   = forms.DateField(
-                            label=u'Ending Date',
-                            widget=SelectDateWidget(years = [datetime.date.today().year - i for i in range(10)])
-                            )
+    end = forms.DateField(
+                          label=u'Ending Date',
+                          widget=SelectDateWidget(years = [datetime.date.today().year - i for i in range(10)]),
+                          initial=datetime.date.today()
+                          )
 
     def clean(self):
         data = self.cleaned_data
