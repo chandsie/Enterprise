@@ -1,16 +1,16 @@
+from Enterprise.logger.views import login_page, submit_page, passUpdate_page, \
+    adminLogin_page, adminLogout_page, addUser_page, userReport_page, \
+    dateReport_page, rangeReport_page
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
-from Enterprise.logger.views import login_page, userReport_page, dateReport_page, \
-    addUser_page, passUpdate_page, success_page, passReset_page, rangeReport_page, \
-    adminLogin_page, adminLogout_page
 from django.contrib.auth.decorators import login_required
+from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('',
 
 #    Employee Interface
 
     (r'^$', login_page),
-    #(r'success/^$', success_page),
+    url(r'submit/^$', submit_page, name='main_submit_page'),
     (r'^update/$', passUpdate_page),
     (r'^update/success/$', direct_to_template, {'template' : 'passUpdateSuccess.html'}),
     
@@ -31,5 +31,4 @@ urlpatterns = patterns('',
     (r'^report/date/([\d]{4}-[\d]{1,2}-[\d]{1,2})/$', dateReport_page),
     (r'^report/date/range/$', rangeReport_page),
       
-    
 )

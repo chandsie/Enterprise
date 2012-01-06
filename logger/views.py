@@ -1,15 +1,16 @@
-from datetime import datetime, time, timedelta, date
-from django.contrib.auth import authenticate, login, logout
+from Enterprise.logger.forms import LogForm, PasswordUpdateForm, AdminLoginForm, \
+    RegistrationForm, RangeReportForm
+from Enterprise.logger.models import Log
+from datetime import datetime, date
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render_to_response, get_object_or_404, \
-    get_list_or_404, redirect
+from django.contrib.auth.views import login, logout
+from django.shortcuts import render_to_response, redirect, get_list_or_404, \
+    get_object_or_404
 from django.template.context import RequestContext
-from Enterprise.logger.forms import LogForm, RegistrationForm, PasswordUpdateForm, \
-    RangeReportForm, AdminLoginForm
-from Enterprise.logger.models import Log
 import random
-import string
+import time
 
 def _getDiff(end, begin):
     return datetime.combine(date.today(), end) - datetime.combine(date.today(), begin)
@@ -21,32 +22,37 @@ def login_page(request):
         if form.is_valid():
             user = User.objects.get(username=form.cleaned_data['username'])
             log, created = Log.objects.get_or_create(name=user, date=datetime.date(datetime.now()))
-            name = user.first_name + " " + user.last_name
-            hours, minutes = 0,0
-            if created:
-                fileName = "loginSuccess.html"
-                time = log.time_in.strftime("%I:%M %p")
-            else:
+            err = False
+            if not created:
                 if not log.time_out:
-                    fileName = "logoutSuccess.html"
                     log.time_out = datetime.time(datetime.now())
                     log.save()
                 else:
-                    fileName = "logError.html"
-                time = log.time_out.strftime("%I:%M %p")
-                hours, minutes = _getHoursAndMinutes(log)
-            return render_to_response(fileName, RequestContext(request, {
-                                                                     'name' : name,
-                                                                     'time' : time,
-                                                                     'hours' : hours,
-                                                                     'minutes' : minutes
-                                                                     }))                               
+                    err = True
+            return redirect('main_submit_page', log, err)
     else:
         form = LogForm()
     return render_to_response('main.html', RequestContext(request, {'form' : form}))
 
-def success_page():
-    pass
+def submit_page(request, record, error):
+    user = record.name.first_name + " " + record.name.last_name
+    hours, minutes = 0,0
+    if record.time_out:
+        time = record.time_out.strftime("%I:%M %p")
+        hours, minutes = _getHoursAndMinutes(record)
+        if error:
+            fileName = "logError.html"
+        else:
+            fileName = "logoutSuccess.html"
+    else:
+        fileName = "loginSuccess.html"
+        time = record.time_in.strftime("%I:%M %p")
+    return render_to_response(fileName, RequestContext(request, {
+                                                                 'name' : user,
+                                                                 'time' : time,
+                                                                 'hours' : hours,
+                                                                 'minutes' : minutes
+                                                                 }))
 
 def passUpdate_page(request):
     if request.method == 'POST':
