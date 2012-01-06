@@ -9,5 +9,5 @@ This is a web application, written in Python using the Django framework, to allo
 
 Before deploying:
 
-1. Create database fixtures for project using **./manage.py syncdb'**
+1. Create database fixtures for project using **'./manage.py syncdb'**
 2. Insert project path in .wsgi file in apache subfolder
